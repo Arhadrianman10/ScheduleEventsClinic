@@ -1,0 +1,52 @@
+.footer-style {
+    justify-content: space-between; /* Distribuye los botones en lados opuestos */
+}
+
+.button-style {
+    width: 100px; /* Define un ancho específico para los botones */
+}
+
+.container-style {
+    max-width: 600px; 
+    margin: 0 auto; /* Centra el contenido */
+}
+
+.padding-style {
+    padding-bottom: 20px; /* Añade un relleno al final */
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Esto permitirá que el botón ocupe todo el espacio disponible en altura */
+}
+
+.fixed-height {
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.slds-card__body_inner {
+    flex-grow: 1; /* Esto hace que el contenido ocupe todo el espacio disponible */
+}
+
+.title-style {
+    font-size: 24px;
+    text-align: center;
+    margin: 0 auto; /* Centra el título horizontalmente */
+}
+
+.summary-card {
+    margin: auto; /* Centra horizontalmente */
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, 30%); /* Centra verticalmente */
+    max-width: 600px; 
+}
+
+.centered-content {
+    font-size: 18px; 
+}

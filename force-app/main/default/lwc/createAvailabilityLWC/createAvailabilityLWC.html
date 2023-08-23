@@ -1,0 +1,136 @@
+<!--
+  @description       : 
+  @author            : Adrian Romero
+  @group             : 
+  @last modified on  : 08-23-2023
+  @last modified by  : Adrian Romero
+-->
+<template>
+    <template if:true={isInitialPage}>
+        <div class="slds-card fixed-height">
+            <div class="slds-card__header slds-grid">
+                <div class="slds-col slds-size_1-of-1">
+                    <h2 class="slds-text-heading_medium title-style">Módulo de disponibilidad de médicos</h2>
+                </div>
+            </div>            
+            <div class="slds-p-around_medium slds-m-around_small center-button">
+                <button class="slds-button slds-button_brand" onclick={startSearch}>Crear disponibilidad</button>
+            </div>
+        </div>
+    </template>
+    <template if:false={isInitialPage}>
+        <div class="slds-card fixed-height">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__body">
+                            <template if:true={isStep1}><h2 class="slds-card__header-title">Crear disponibilidad</h2></template>
+                            <template if:true={isStep4}><h2 class="slds-card__header-title">Resumen</h2></template>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <template if:true={isStep1}>
+                        <div class="slds-card__body slds-card__body_inner container-style">
+                            <lightning-input type="search" label="Buscar médico" value={searchTerm} onchange={handleSearchChange}></lightning-input>
+                            <div class="slds-p-around_small">
+                                <template for:each={searchResults} for:item="doctor">
+                                    <p key={doctor.Id}>
+                                        <lightning-button name={doctor.Id} label={doctor.Name} variant="base" onclick={handleDoctorSelect}></lightning-button>
+                                    </p>
+                                </template>
+                            </div>
+                            
+                            <h3>Médicos seleccionados:</h3>
+                            <div class="slds-p-around_small">
+                                <template for:each={selectedDoctors} for:item="doctor">
+                                    <lightning-pill key={doctor.Id} name={doctor.Id} label={doctor.Name} onremove={handleDoctorDeselect}></lightning-pill>
+                                </template>
+                            </div>
+
+                            <lightning-combobox label="Centro Médico" placeholder="Selecciona un Centro" options={centers} value={selectedCenter} onchange={handleCenterChange}></lightning-combobox>
+
+                            
+                            <lightning-input type="date" label="Fecha de inicio" value={startDate} onchange={handleStartDateChange}></lightning-input>
+                            <lightning-input type="date" label="Fecha de fin" value={endDate} onchange={handleEndDateChange}></lightning-input>
+
+                            <lightning-combobox label="Hora de inicio" placeholder="Selecciona una hora" options={startHourOptions} value={selectedStartHour} onchange={handleStartHourChange}></lightning-combobox>
+                            <lightning-combobox label="Hora de fin" placeholder="Selecciona una hora" options={endHourOptions} value={selectedEndHour} onchange={handleEndHourChange}></lightning-combobox>
+
+                            <div class="padding-style"></div>
+
+                        </div>
+                    </template>
+
+                    <template if:true={isStep4}>
+                        <div class="slds-card">
+                            <div class="slds-card__body slds-card__body_inner container-style">
+                                <h3>Resumen de la Selección</h3>
+                                <!-- Detalles de la Pantalla 1 -->
+                                <p><strong>Doctor:</strong> {selectedDoctorName}</p>
+                                <p><strong>Centro:</strong> {selectedCenterName}</p>
+                                
+                                <!-- Detalles de la Pantalla 2 -->
+                                <p><strong>Fecha:</strong> {selectedDate}</p>
+                                <p><strong>Hora:</strong> {selectedStartTime} - {selectedEndTime}</p>
+                    
+                                <!-- Detalles de la Pantalla 3 -->
+                                <p><strong>Nombre:</strong> {contactFirstName}</p>
+                                <p><strong>Apellidos:</strong> {contactLastName}</p>
+                                <p><strong>Email:</strong> {contactEmail}</p>
+                                <p><strong>Teléfono:</strong> {contactPhone}</p>
+                                <p><strong>Observaciones:</strong> {contactObservations}</p>
+                            </div>
+                        </div>
+                        <div class="padding-style"></div>
+                    </template>
+                    
+                    <template if:true={isStep2}>
+                        <div class="slds-card ">
+                            <div class="slds-card__header slds-grid">
+                                <h2 class="slds-text-heading_medium slds-truncate " title="Resumen de la disponibilidad">Resumen de la disponibilidad</h2>
+                            </div>
+                            <div class="summary-card">
+                            <div class="slds-card__body content-center">
+                                <div class="centered-content">
+                                    <h3><strong>Médicos seleccionados:</strong></h3>
+                                    <ul>
+                                        <template for:each={selectedDoctors} for:item="doctor">
+                                            <li key={doctor.Id}>{doctor.Name}</li>
+                                        </template>
+                                    </ul>
+                                    <h3><strong>Centro Médico seleccionado:</strong></h3>
+                                    <p>{selectedCenterName}</p>
+                                    <h3><strong>Fechas seleccionadas:</strong></h3>
+                                    <p><strong>Fecha de inicio:</strong> {startDate}</p>
+                                    <p><strong>Fecha de fin:</strong> {endDate}</p>
+                                    <h3><strong>Horas seleccionadas:</strong></h3>
+                                    <p><strong>Hora de inicio:</strong> {selectedStartHour}</p>
+                                    <p><strong>Hora de fin:</strong> {selectedEndHour}</p>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="padding-style"></div>
+                    </template>
+                    
+                               
+
+                </div>
+                <footer class="slds-card__footer slds-grid footer-style">
+                    <template if:true={isStep1}>
+                        <button label="Cancelar" class="slds-button slds-button_neutral button-style" onclick={handleCancel}>Cancelar</button>
+                    </template>
+                    <template if:false={isStep1}>
+                        <button label="Anterior" class="slds-button slds-button_neutral button-style" onclick={prevStep}>Anterior</button>
+                    </template>
+                    <template if:false={isStep2}>
+                        <button label="Siguiente" class="slds-button slds-button_brand button-style slds-text-align_right" onclick={nextStep} disabled={isNextButtonDisabled}>Siguiente</button>
+                    </template>
+                    <template if:true={isStep2}>
+                        <button label="Finalizar" class="slds-button slds-button_brand button-style slds-text-align_right" onclick={handleFinish}>Finalizar</button>
+                    </template>
+                </footer>
+            </div>
+        </template>
+</template>
+

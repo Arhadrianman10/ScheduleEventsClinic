@@ -1,0 +1,124 @@
+<!--
+  @description       : 
+  @author            : Adrian Romero
+  @group             : 
+  @last modified on  : 08-23-2023
+  @last modified by  : Adrian Romero
+-->
+<template>
+    <template if:true={isInitialPage}>
+        <div class="slds-card fixed-height">
+            <div class="slds-card__header slds-grid">
+                <div class="slds-col slds-size_1-of-1"> 
+                    <h2 class="slds-text-heading_medium title-style">Módulo de creación de citas</h2> 
+                </div>
+            </div>            
+            <div class="slds-p-around_medium slds-m-around_small center-button">
+                <button class="slds-button slds-button_brand" onclick={startSearch}>Buscar cita</button>
+            </div>
+        </div>
+    </template>
+    
+    <template if:false={isInitialPage}>
+        <div class="slds-card fixed-height">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__body">
+                            <template if:true={isStep1}><h2 class="slds-card__header-title">Fecha</h2></template>
+                            <template if:true={isStep2}><h2 class="slds-card__header-title">Huecos</h2></template>
+                            <template if:true={isStep3}><h2 class="slds-card__header-title">Contacto</h2></template>
+                            <template if:true={isStep4}><h2 class="slds-card__header-title">Resumen</h2></template>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <template if:true={isStep1}>
+                        <div class="slds-card__body slds-card__body_inner container-style">
+
+                            <lightning-input id="fecha" type="date" label="Fecha" placeholder="Selecciona una Fecha" value={selectedDate} min={minDate} onchange={handleDateChange}></lightning-input>
+                            <lightning-combobox label="Centro Médico" placeholder="Selecciona un Centro" options={centers} value={selectedCenter} onchange={handleCenterChange}></lightning-combobox>
+                            <lightning-combobox label="Especialista" placeholder="Selecciona una Especialidad" options={specialties} value={selectedSpecialty} onchange={handleSpecialtyChange}></lightning-combobox>
+                            <div class="padding-style"></div>
+                        </div>
+                    </template>
+                    <template if:true={isStep2}>
+                        <div class="slds-card__body slds-card__body_inner container-style">
+                            <lightning-combobox label="Médicos Disponibles" placeholder="Selecciona un Médico" options={doctors} value={selectedDoctor} onchange={handleDoctorChange}></lightning-combobox>
+                            <lightning-combobox
+                                label="Duración de la cita"
+                                value={selectedDuration}
+                                placeholder="Seleccione la duración"
+                                options={durations}
+                                onchange={handleDurationChange}>
+                            </lightning-combobox>
+                            <lightning-combobox
+                                label="Seleccione un horario"
+                                value={selectedTimeSlot}
+                                placeholder="Seleccione un horario"
+                                options={timeSlots}
+                                onchange={handleTimeSlotChange}>
+                            </lightning-combobox>
+                            <div class="padding-style"></div>
+                            
+                        </div>
+                    </template>
+                    <template if:true={isStep3}>
+                        <div class="slds-card">
+                            <div class="slds-card__body slds-card__body_inner container-style">
+                                <lightning-input label="Nombre" placeholder="Ingresa su nombre" value={contactFirstName} onchange={handleContactFirstNameChange}></lightning-input>
+                                <lightning-input label="Apellidos" placeholder="Ingresa sus apellidos" value={contactLastName} onchange={handleContactLastNameChange}></lightning-input>
+                                <lightning-input type="email" label="Email" placeholder="Ingresa su email" value={contactEmail} onchange={handleContactEmailChange}></lightning-input>
+                                <lightning-input type="tel" label="Teléfono" placeholder="Ingresa su telefono" value={contactPhone} onchange={handleContactPhoneChange}></lightning-input>
+                                <lightning-textarea label="Observaciones" placeholder="Agrega las observaciones aquí" value={contactObservations} onchange={handleContactObservationsChange}></lightning-textarea>
+                            </div>
+                        </div>
+                        <div class="padding-style"></div>
+                    </template>
+                    
+                    <template if:true={isStep4}>
+                        <div class="slds-card">
+                            <div class="slds-card__header slds-grid">
+                                <h2 class="slds-text-heading_medium slds-truncate" title="Resumen de la Selección">Resumen de la Selección</h2>
+                            </div>
+                            <div class="summary-card">
+                                <div class="slds-card__body content-center">
+                                    <div class="centered-content">
+                                        <h3><strong>Doctor:</strong> {selectedDoctorName}</h3>
+                                        <h3><strong>Centro:</strong> {selectedCenterName}</h3>
+                                        
+                                        <h3><strong>Fecha:</strong> {selectedDate}</h3>
+                                        <h3><strong>Hora:</strong> {selectedStartTime} - {selectedEndTime}</h3>
+                                
+                                        <h3><strong>Nombre:</strong> {contactFirstName}</h3>
+                                        <h3><strong>Apellidos:</strong> {contactLastName}</h3>
+                                        <h3><strong>Email:</strong> {contactEmail}</h3>
+                                        <h3><strong>Teléfono:</strong> {contactPhone}</h3>
+                                        <h3><strong>Observaciones:</strong> {contactObservations}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="padding-style"></div>
+                    </template>
+                    
+                    
+                    
+
+                </div>
+                <footer class="slds-card__footer slds-grid footer-style">
+                    <template if:true={isStep1}>
+                        <button label="Cancelar" class="slds-button slds-button_neutral button-style" onclick={handleCancel}>Cancelar</button>
+                    </template>
+                    <template if:false={isStep1}>
+                        <button label="Anterior" class="slds-button slds-button_neutral button-style" onclick={prevStep}>Anterior</button>
+                    </template>
+                    <template if:false={isStep4}>
+                        <button label="Siguiente" class="slds-button slds-button_brand button-style slds-text-align_right" onclick={nextStep} disabled={isNextButtonDisabled}>Siguiente</button>
+                    </template>
+                    <template if:true={isStep4}>
+                        <button label="Finalizar" class="slds-button slds-button_brand button-style slds-text-align_right" onclick={handleFinish}>Finalizar</button>
+                    </template>
+                </footer>
+            </div>
+        </template>
+</template>
