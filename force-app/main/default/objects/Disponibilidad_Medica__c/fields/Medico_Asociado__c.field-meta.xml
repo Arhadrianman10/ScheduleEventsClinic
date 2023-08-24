@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Medico_Asociado__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>Médico al cual pertenece esta disponibilidad.</description>
+    <externalId>false</externalId>
+    <label>Médico Asociado</label>
+    <referenceTo>Medico__c</referenceTo>
+    <relationshipLabel>Disponibilidades Médicas</relationshipLabel>
+    <relationshipName>Disponibilidades_Medicas</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

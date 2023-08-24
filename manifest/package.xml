@@ -39,5 +39,11 @@
 		<members>createAvailabilityLWC</members>
 		<name>LightningComponentBundle</name>
 	</types>
+	<types>
+		<members>Admin</members>
+		<members>Gestoría User</members>
+		<members>Secretaría User</members>
+		<name>Profile</name>
+	</types>
     <version>58.0</version>
 </Package>

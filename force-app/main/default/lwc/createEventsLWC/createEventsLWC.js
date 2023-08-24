@@ -4,7 +4,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getCenters from '@salesforce/apex/createEventsLWCController.getCenters';
 import getSpecialties from '@salesforce/apex/createEventsLWCController.getSpecialties';
 import getAvailableDoctors from '@salesforce/apex/createEventsLWCController.getAvailableDoctors';
-import getAvailableTimeSlots from '@salesforce/apex/CreateEventsLWCController.getAvailableTimeSlots';
+import getAvailableTimeSlots from '@salesforce/apex/createEventsLWCController.getAvailableTimeSlots';
 import createEvent from '@salesforce/apex/createEventsLWCController.createEvent';
 
 

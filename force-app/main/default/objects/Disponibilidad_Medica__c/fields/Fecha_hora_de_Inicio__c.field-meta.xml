@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fecha_hora_de_Inicio__c</fullName>
+    <description>Hora de inicio de la disponibilidad del médico</description>
+    <externalId>false</externalId>
+    <label>Fecha/hora de Inicio</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>
