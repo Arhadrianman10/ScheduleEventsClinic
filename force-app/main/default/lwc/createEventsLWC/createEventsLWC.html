@@ -2,7 +2,7 @@
   @description       : 
   @author            : Adrian Romero
   @group             : 
-  @last modified on  : 08-23-2023
+  @last modified on  : 08-24-2023
   @last modified by  : Adrian Romero
 -->
 <template>
@@ -24,10 +24,10 @@
             <div class="slds-card__header slds-grid">
                 <header class="slds-media slds-media_center slds-has-flexi-truncate">
                     <div class="slds-media__body">
-                            <template if:true={isStep1}><h2 class="slds-card__header-title">Fecha</h2></template>
-                            <template if:true={isStep2}><h2 class="slds-card__header-title">Huecos</h2></template>
-                            <template if:true={isStep3}><h2 class="slds-card__header-title">Contacto</h2></template>
-                            <template if:true={isStep4}><h2 class="slds-card__header-title">Resumen</h2></template>
+                            <template if:true={isStep1}><h2 class="slds-card__header-title">Seleccionar Fecha, Centro Médico y Especialidad</h2></template>
+                            <template if:true={isStep2}><h2 class="slds-card__header-title">Seleccionar Médicos Disponibles y Duración de la Cita</h2></template>
+                            <template if:true={isStep3}><h2 class="slds-card__header-title">Paciente</h2></template>
+                            <template if:true={isStep4}><h2 class="slds-card__header-title">Resumen de la Cita</h2></template>
                         </div>
                     </header>
                 </div>
@@ -77,9 +77,9 @@
                     
                     <template if:true={isStep4}>
                         <div class="slds-card">
-                            <div class="slds-card__header slds-grid">
+                            <!-- <div class="slds-card__header slds-grid">
                                 <h2 class="slds-text-heading_medium slds-truncate" title="Resumen de la Selección">Resumen de la Selección</h2>
-                            </div>
+                            </div> -->
                             <div class="summary-card">
                                 <div class="slds-card__body content-center">
                                     <div class="centered-content">
